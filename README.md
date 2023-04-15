@@ -31,17 +31,20 @@ This one is mostly here as a baseline. By design it buffers to *n* 64k files on 
 
 ### Scenario 2: `Request.BodyReader`
 I've the most hope for [`Request.BodyReader`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.httprequest.bodyreader?view=aspnetcore-7.0). It is also deliberately commenting out the inefficient writes to disk as they don't seem to be important. What is important from what I see is the memory usage once the pipe reads begin. The memory will shoot up but won't go back down. An example below is the process memory graph from Visual Studio with a 128MB file:
+
 ![](images/processmemory1.jpg)
 
 The memory usage before processing was 36MB and shot up to 676MB when processing a single 128MB file. This is where I'd like to understand what's using all the memory as well as why it doesn't go down.
 
 Checking out the memory snapshot dump, there are hundreds or thousands of [4096 byte arrays](https://github.com/dotnet/aspnetcore/issues/30545#issuecomment-788072866) I think rented from a `MemoryPool` at some point:
+
 ![](images/memorysnapshot1.jpg)
 
 ### Scenario 3: `MultipartReader`
 Originally I misunderstood how `multipart/form-data` worked, thinking there was magic splitting up the large binary in the form. But no, it splits up each discrete chunk of data into their own blocks. I.e. my large file did not get splut into smaller bits, it itself was one large bit.
 
 And to check, the data looks to be holding up in one large byte array:
+
 ![](images/multipartperformance1.jpg)
 
 This has been left in similar to `IFormFile` in order to have a point to contrast with.
