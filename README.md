@@ -4,6 +4,8 @@ A minimal reproducible example to compare and contrast some uploading methods fo
 ## Background
 While playing with a personal project, I became interested in large file uploads to ASP.NET Core minimal APIs. I'm a fan of shifting the [smallest number of bytes](https://github.com/nikouu/TinyWordle) the [fastest way possible](https://github.com/nikouu/dotnet-optimization-cheatsheet) and thought to add the constraint of being able to host a free tier Azure Web App to pass a large uploaded file to Azure Blob Storage. The challenge here is the file should be larger than both the RAM and disk combined for a free tier web app. This means the file in its entirity cannot be buffered to disk and/or memory.
 
+*As of writing this, the free tier (F1) has 1 GB RAM and 1 GB Storage.*
+
 ## Desired Outcome
 To understand better how Kestrel (I think) handles large body requests. Ultimately I'd be keen to know if there is a way to "hot potato" the data from incoming to outgoing while keeping memory usage as low as the CPU will allow it.
 
