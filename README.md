@@ -33,7 +33,7 @@ The following outline the three code examples found in this project.
 This one is mostly here as a baseline. By design it buffers to *n* 64k files on disk and isn't suitable for the desired outcome.
 
 ### Scenario 2: `Request.BodyReader`
-I've the most hope for [`Request.BodyReader`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.httprequest.bodyreader?view=aspnetcore-7.0). It is also deliberately commenting out the inefficient writes to disk as they don't seem to be important. What is important from what I see is the memory usage once the pipe reads begin. The memory will shoot up but won't go back down. An example below is the process memory graph from Visual Studio with a 128MB file:
+I've the most hope for [`Request.BodyReader`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.httprequest.bodyreader?view=aspnetcore-7.0). This scenario **deliberately comments out the inefficient writes to disk** as they don't seem to be important. What is important from what I see is the memory usage once the pipe reads begin. The memory will shoot up but won't go back down. An example below is the process memory graph from Visual Studio with a 128MB file:
 
 ![](images/processmemory1.jpg)
 
