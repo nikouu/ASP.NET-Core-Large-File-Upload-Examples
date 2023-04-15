@@ -9,7 +9,11 @@ While playing with a personal project, I became interested in large file uploads
 ## Desired Outcome
 To understand better how Kestrel (I think) handles large body requests. Ultimately I'd be keen to know if there is a way to "hot potato" the data from incoming to outgoing while keeping memory usage as low as the CPU will allow it.
 
-I totally understand if this is a back pressure issue that I don't comprehend. Though see Further Thought 4 below for more.
+The problem isn't how to upload large files, it's how to upload large files in the most memory and disk efficient way. Hopefully by reusing the same space in memory as data comes in and gets shuffled out.
+
+I totally understand if this is a back pressure issue that I don't comprehend. There would be an incredible balance of transfer in speed and write out speed have a clean and balanced memory footprint. Though see Further Thought 4 below for more.
+
+And large files in my mind are gigabytes.
 
 ## How to Use
 1. Download
