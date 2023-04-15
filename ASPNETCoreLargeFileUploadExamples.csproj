@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>ASP.NET_Core_Large_File_Upload_Examples</RootNamespace>
+    <RootNamespace>ASPNETCoreLargeFileUploadExamples</RootNamespace>
   </PropertyGroup>
 
 </Project>
