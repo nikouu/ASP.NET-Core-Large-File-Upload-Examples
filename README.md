@@ -7,6 +7,8 @@ While playing with a personal project, I became interested in large file uploads
 ## Desired Outcome
 To understand better how Kestrel (I think) handles large body requests. Ultimately I'd be keen to know if there is a way to "hot potato" the data from incoming to outgoing while keeping memory usage as low as the CPU will allow it.
 
+I totally understand if this is a back pressure issue that I don't comprehend. Though see Further Thought 4 below for more.
+
 ## Scenarios
 The following outline the three code examples found in this project. 
 
@@ -27,13 +29,15 @@ Checking out the memory snapshot dump, there are hundreds or thousands of [4096 
 ### Scenario 3: `MultipartReader`
 Originally I misunderstood how `multipart/form-data` worked, thinking there was magic splitting up the large binary in the form. But no, it splits up each discrete chunk of data into their own blocks. I.e. my large file did not get splut into smaller bits, it itself was one large bit.
 
-This has been left in similar to `IFormFile` in order to have a point to contrast with.
+And to check, the data looks to be holding up in one large byte array:
+![](images/multipartperformance1.jpg)
 
+This has been left in similar to `IFormFile` in order to have a point to contrast with.
 ## Further thoughts
-- Perhaps there is no way to access the incoming body before it's fully buffered into the server or middleware?
-- In my mind, the internal buffer management of the `BodyReader` would've kept memory down from just peeking at how it's used in [`Http2Stream.cs`](https://github.com/dotnet/aspnetcore/blob/7d0c27344d193cb6ad263732d1fef6d3e0fd1f71/src/Servers/Kestrel/Core/src/Internal/Http2/Http2Stream.cs#L497) and in [`Http2MessageBody.cs`](https://github.com/dotnet/aspnetcore/blob/bec278eabea54f63da15e10e654bdfa4168a2479/src/Servers/Kestrel/Core/src/Internal/Http2/Http2MessageBody.cs#L97) However I doubt it's that simple.
-- Similarly, when the request ends the memory usage is still high, I would've thought some of the rented memory would've been returned/disposed. But I don't understand the internals of renting memory.
-- I originally was thinking "maybe everything is working as I'm expecting?. Perhaps the upload happens so incredibly fast in the `Request.BodyReader` example that there is no other option but to buffer in memory as the CPU (and IO) can't spit it out fast enough to disk or Azure Blob Storage?". Though I think I've debunked this by commenting out the disk write lines and the process memory graph still increasing by a lot.
+1. Perhaps there is no way to access the incoming body before it's fully buffered into the server or middleware?
+1. In my mind, the internal buffer management of the `BodyReader` would've kept memory down from just peeking at how it's used in [`Http2Stream.cs`](https://github.com/dotnet/aspnetcore/blob/7d0c27344d193cb6ad263732d1fef6d3e0fd1f71/src/Servers/Kestrel/Core/src/Internal/Http2/Http2Stream.cs#L497) and in [`Http2MessageBody.cs`](https://github.com/dotnet/aspnetcore/blob/bec278eabea54f63da15e10e654bdfa4168a2479/src/Servers/Kestrel/Core/src/Internal/Http2/Http2MessageBody.cs#L97) However I doubt it's that simple.
+1. Similarly, when the request ends the memory usage is still high, I would've thought some of the rented memory would've been returned/disposed. But I don't understand the internals of renting memory.
+1. I originally was thinking "maybe everything is working as I'm expecting? Perhaps the upload happens so incredibly fast in the `Request.BodyReader` example that there is no other option but to buffer in memory as the CPU (and IO) can't spit it out fast enough to disk or Azure Blob Storage?". Though I think I've debunked this by commenting out the disk write lines and the process memory graph still increasing by a lot.
 
 ## Other notes
 - Using dotnet 7.0.203
