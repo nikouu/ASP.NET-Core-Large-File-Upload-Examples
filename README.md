@@ -36,7 +36,7 @@ I've the most hope for [`Request.BodyReader`](https://learn.microsoft.com/en-us/
 The memory usage before processing was 36MB and shot up to 676MB when processing a single 128MB file. This is where I'd like to understand what's using all the memory as well as why it doesn't go down.
 
 Checking out the memory snapshot dump, there are hundreds or thousands of [4096 byte arrays](https://github.com/dotnet/aspnetcore/issues/30545#issuecomment-788072866) I think rented from a `MemoryPool` at some point:
-![](images%5Cmemorysnapshot1.jpg)
+![](images/memorysnapshot1.jpg)
 
 ### Scenario 3: `MultipartReader`
 Originally I misunderstood how `multipart/form-data` worked, thinking there was magic splitting up the large binary in the form. But no, it splits up each discrete chunk of data into their own blocks. I.e. my large file did not get splut into smaller bits, it itself was one large bit.
