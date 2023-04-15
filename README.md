@@ -9,6 +9,14 @@ To understand better how Kestrel (I think) handles large body requests. Ultimate
 
 I totally understand if this is a back pressure issue that I don't comprehend. Though see Further Thought 4 below for more.
 
+## How to Use
+1. Download
+2. Run the project
+3. Pick one of the examples on the page by uploading a file and clicking submit
+4. The "Upload Complete" page will show when the endpoint has finished uploading
+
+![](images/webpage.jpg)
+
 ## Scenarios
 The following outline the three code examples found in this project. 
 
