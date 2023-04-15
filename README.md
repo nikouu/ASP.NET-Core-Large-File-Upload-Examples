@@ -34,8 +34,6 @@ The memory usage before processing was 36MB and shot up to 676MB when processing
 Checking out the memory snapshot dump, there are hundreds or thousands of [4096 byte arrays](https://github.com/dotnet/aspnetcore/issues/30545#issuecomment-788072866) I think rented from a `MemoryPool` at some point:
 ![](images%5Cmemorysnapshot1.jpg)
 
-
-
 ### Scenario 3: `MultipartReader`
 Originally I misunderstood how `multipart/form-data` worked, thinking there was magic splitting up the large binary in the form. But no, it splits up each discrete chunk of data into their own blocks. I.e. my large file did not get splut into smaller bits, it itself was one large bit.
 
@@ -65,3 +63,6 @@ Not all were used in earnest, some as jumping points to help with unknown unknow
 - [System.IO.Pipelines in .NET](https://learn.microsoft.com/en-us/dotnet/standard/io/pipelines)
 - [How to use the feature in aspnetcore Http.Request to begin processing the entity body before the complete contents of the body have been received.](https://github.com/dotnet/aspnetcore/issues/43084)
 - [Added support for binding the raw request body](https://github.com/dotnet/aspnetcore/pull/39388)
+- [Minimal APIs quick reference](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-7.0)
+- [How to create responses in Minimal API apps](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/responses?view=aspnetcore-7.0)
+- [BufferedReadStream.EnsureBufferedAsync](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.webutilities.bufferedreadstream.ensurebufferedasync?view=aspnetcore-7.0)
