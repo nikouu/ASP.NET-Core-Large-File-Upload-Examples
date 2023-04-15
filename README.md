@@ -1,1 +1,1 @@
-# Asp.NET-Large-File-Upload-Examples
+# Asp.NET Core Large File Upload Examples
