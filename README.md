@@ -55,7 +55,7 @@ Checking out the memory snapshot dump, there are hundreds or thousands of [4096 
 ![](images/memorysnapshot1.jpg)
 
 ### Scenario 3: `MultipartReader`
-Originally I misunderstood how `multipart/form-data` worked, thinking there was magic splitting up the large binary in the form. But no, it splits up each discrete chunk of data into their own blocks. I.e. my large file did not get splut into smaller bits, it itself was one large bit.
+Originally I misunderstood how `multipart/form-data` worked, thinking there was magic splitting up the large binary in the form. But no, it splits up each discrete chunk of data into their own blocks. I.e. my large file did not get spluit into smaller bits, it was one large bit.
 
 And to check, the data looks to be holding up in one large byte array:
 
