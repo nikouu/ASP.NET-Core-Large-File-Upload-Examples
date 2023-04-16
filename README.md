@@ -32,12 +32,19 @@ The following outline the three code examples found in this project.
 ### Scenario 1: `IFormFile`
 This one is mostly here as a baseline. By design it buffers to *n* 64k files on disk and isn't suitable for the desired outcome.
 
+I assume it works like this:
+
+![](images/iformfileanimation.mp4)
+
 ### Scenario 2: `Request.BodyReader`
 I've the most hope for [`Request.BodyReader`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.httprequest.bodyreader?view=aspnetcore-7.0). This scenario **deliberately comments out the inefficient writes to disk** as they don't seem to be important. What is important from what I see is the memory usage once the pipe reads begin. The memory will shoot up but won't go back down. An example below is the process memory graph from Visual Studio with a 128MB file:
 
 ![](images/processmemory1.jpg)
 
-The memory usage before processing was 36MB and shot up to 676MB when processing a single 128MB file. This is where I'd like to understand what's using all the memory as well as why it doesn't go down.
+The memory usage before processing was 36MB and shot up to 676MB when processing a single 128MB file. This is where I'd like to understand what's using all the memory as well as why it doesn't go down. Because I expected the process to look something like:
+
+![](images/bodyreaderanimation.mp4)
+
 
 Checking out the memory snapshot dump, there are hundreds or thousands of [4096 byte arrays](https://github.com/dotnet/aspnetcore/issues/30545#issuecomment-788072866) I think rented from a `MemoryPool` at some point:
 
@@ -61,6 +68,7 @@ This has been left in similar to `IFormFile` in order to have a point to contras
 - Using dotnet 7.0.203
 - Extra work is needed to make this work with IIS (such as for an Azure Web App) but that's outside of the scope for this example.
 - Remember, this is for a silly personal project 🤓, however I think there is value in better understanding how internal buffering works.
+- Animating is hard for someone who hasn't done it before..
 
 
 ## References
