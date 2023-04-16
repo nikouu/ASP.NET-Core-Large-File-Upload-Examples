@@ -32,7 +32,7 @@ The following outline the three code examples found in this project.
 ### Scenario 1: `IFormFile`
 This one is mostly here as a baseline. By design it buffers to *n* 64k files on disk and isn't suitable for the desired outcome.
 
-I assume it works like this:
+I assume it works like this (with green circles being data):
 
 ![](images/ifromfileanimation.gif)
 
@@ -41,7 +41,7 @@ I've the most hope for [`Request.BodyReader`](https://learn.microsoft.com/en-us/
 
 ![](images/processmemory1.jpg)
 
-The memory usage before processing was 36MB and shot up to 676MB when processing a single 128MB file. This is where I'd like to understand what's using all the memory as well as why it doesn't go down. Because I expected the process to look something like:
+The memory usage before processing was 36MB and shot up to 676MB when processing a single 128MB file. This is where I'd like to understand what's using all the memory as well as why it doesn't go down. Because I expected the process to look something like (with green circles being data):
 
 ![](images/bodyreader.gif)
 
