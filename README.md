@@ -45,6 +45,8 @@ The memory usage before processing was 36MB and shot up to 676MB when processing
 
 ![](images/bodyreader.gif)
 
+**But this doesn't seem to be the case?** And is the crux of this whole repo.
+
 
 Checking out the memory snapshot dump, there are hundreds or thousands of [4096 byte arrays](https://github.com/dotnet/aspnetcore/issues/30545#issuecomment-788072866) I think rented from a `MemoryPool` at some point:
 
