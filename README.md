@@ -7,13 +7,15 @@ While playing with a personal project, I became interested in large file uploads
 *As of writing this, the Azure Web App free tier (F1) has 1 GB RAM and 1 GB Storage.*
 
 ## Desired Outcome
-To understand better how Kestrel (I think) handles large body requests. Ultimately I'd be keen to know if there is a way to "hot potato" the data from incoming to outgoing while keeping memory usage as low as the CPU will allow it.
+To understand better how Kestrel (I think) handles large body requests. 
+
+**Ultimately I'd be keen to know if there is a way to "hot potato" the data from incoming to outgoing while keeping memory usage as low as the CPU will allow it.**
 
 The problem isn't how to upload large files, it's how to upload large files in the most memory and disk efficient way. Hopefully by reusing the same space in memory as data comes in and gets shuffled out.
 
 I totally understand if this is a back pressure issue that I don't comprehend. There would be an incredible balance of transfer in speed and write out speed have a clean and balanced memory footprint. Though see Further Thought 4 below for more.
 
-And large files in my mind are gigabytes.
+And large files in my mind are single digit gigabytes in size.
 
 ## How to Use
 
