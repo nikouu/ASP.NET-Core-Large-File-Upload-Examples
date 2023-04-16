@@ -24,7 +24,7 @@ And large files in my mind are gigabytes.
 
 ![](images/webpage.jpg)
 
-`Program.cs` has the interesting code.
+👉 `Program.cs` has the interesting code. 👈
 
 ## Scenarios
 The following outline the three code examples found in this project. 
