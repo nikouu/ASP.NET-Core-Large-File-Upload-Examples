@@ -86,3 +86,4 @@ Not all were used in earnest, some as jumping points to help with unknown unknow
 - [Minimal APIs quick reference](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-7.0)
 - [How to create responses in Minimal API apps](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/responses?view=aspnetcore-7.0)
 - [BufferedReadStream.EnsureBufferedAsync](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.webutilities.bufferedreadstream.ensurebufferedasync?view=aspnetcore-7.0)
+- [Animation website used, Animatron](https://www.animatron.com/studio)
